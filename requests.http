@@ -7,3 +7,457 @@ Content-Type: application/json
   "email": "test@example.com",
   "password": "password123"
 }
+
+### Login user
+POST http://localhost:8080/api/login-user
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Delete user
+POST http://localhost:8080/api/delete-user
+Content-Type: application/json
+
+{
+  "uid": "user-id-here"
+}
+
+###############################################
+# CHARACTER MANAGEMENT ROUTES
+###############################################
+
+### Create a new character
+POST http://localhost:8080/api/create-character
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "name": "Adventurous Hero",
+  "race": "elf",
+  "portrait": "elf-portrait-1"
+}
+
+### Get character data
+GET http://localhost:8080/api/get-character?uid=user-id-here
+
+### Update character stats
+PUT http://localhost:8080/api/update-character
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "stats": {
+    "body": 12,
+    "mind": 15,
+    "heart": 10
+  },
+  "experience": 150
+}
+
+### Update character location
+PUT http://localhost:8080/api/update-character
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "location": {
+    "area": "forest-north",
+    "coordinates": { "x": 10, "y": 15 }
+  }
+}
+
+### Get character statistics
+GET http://localhost:8080/api/character-stats?uid=user-id-here
+
+### Delete character
+DELETE http://localhost:8080/api/delete-character
+Content-Type: application/json
+
+{
+  "uid": "user-id-here"
+}
+
+###############################################
+# GAME STATE MANAGEMENT ROUTES
+###############################################
+
+### Get game state
+GET http://localhost:8080/api/get-game-state?uid=user-id-here&saveSlot=1
+
+### Update game state
+POST http://localhost:8080/api/update-game-state
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "saveSlot": 1,
+  "currentLocation": {
+    "area": "labyrinth-entrance",
+    "coordinates": { "x": 0, "y": 0 }
+  },
+  "phase": "labyrinth",
+  "unlockedAreas": ["starting-town", "forest-north", "labyrinth-entrance"]
+}
+
+### Save game
+POST http://localhost:8080/api/save-game
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "saveSlot": 2,
+  "gameState": {
+    "phase": "childhood",
+    "currentLocation": {
+      "area": "starting-town",
+      "coordinates": { "x": 0, "y": 0 }
+    },
+    "questProgress": {
+      "boat-building": { "progress": 3, "maxProgress": 5, "completed": false }
+    }
+  }
+}
+
+### Load game
+POST http://localhost:8080/api/load-game
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "saveSlot": 1
+}
+
+### Get all save slots
+GET http://localhost:8080/api/get-save-slots?uid=user-id-here
+
+### Delete save slot
+DELETE http://localhost:8080/api/delete-save
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "saveSlot": 3
+}
+
+### Update story milestone
+POST http://localhost:8080/api/update-story-milestone
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "saveSlot": 1,
+  "milestone": {
+    "id": "first-demon-encounter",
+    "name": "First Demon Encounter",
+    "description": "Met first demon after dying in the city",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+}
+
+###############################################
+# COMBAT SYSTEM ROUTES
+###############################################
+
+### Initiate combat
+POST http://localhost:8080/api/initiate-combat
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "enemyId": "forest-spirit-1",
+  "location": "forest-north"
+}
+
+### Submit combat action
+POST http://localhost:8080/api/combat-action
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "combatId": "combat-session-123",
+  "choice": {
+    "type": "body",
+    "action": "attack"
+  }
+}
+
+### Use special attack
+POST http://localhost:8080/api/use-special-attack
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "combatId": "combat-session-123",
+  "attackId": "strawman-fallacy",
+  "choice": {
+    "type": "mind",
+    "action": "special-attack"
+  }
+}
+
+### Respond to fallacy challenge
+POST http://localhost:8080/api/fallacy-challenge
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "combatId": "combat-session-123",
+  "selectedFallacy": "strawman-fallacy",
+  "correctFallacy": "strawman-fallacy"
+}
+
+### Create demon contract
+POST http://localhost:8080/api/demon-contract
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "demonName": "Belphegor",
+  "contractType": "stat-boost",
+  "accepted": true,
+  "terms": {
+    "sacrifice": "core-belief-compassion",
+    "benefit": { "body": 3 }
+  }
+}
+
+### Summon demon
+POST http://localhost:8080/api/summon-demon
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "combatId": "combat-session-123",
+  "demonName": "Belphegor"
+}
+
+### Get combat statistics
+GET http://localhost:8080/api/combat-statistics?uid=user-id-here
+
+### Get available special attacks
+GET http://localhost:8080/api/available-special-attacks?uid=user-id-here
+
+###############################################
+# INVENTORY MANAGEMENT ROUTES
+###############################################
+
+### Get player inventory
+GET http://localhost:8080/api/get-inventory?uid=user-id-here
+
+### Add item to inventory
+POST http://localhost:8080/api/add-item
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "itemId": "forest-herb",
+  "quantity": 3
+}
+
+### Remove item from inventory
+POST http://localhost:8080/api/remove-item
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "itemId": "forest-herb",
+  "quantity": 1
+}
+
+### Equip item
+POST http://localhost:8080/api/equip-item
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "itemId": "iron-sword",
+  "slot": "weapon"
+}
+
+### Unequip item
+POST http://localhost:8080/api/unequip-item
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "slot": "weapon"
+}
+
+### Use consumable item
+POST http://localhost:8080/api/use-item
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "itemId": "health-potion",
+  "quantity": 1
+}
+
+### Get equipped items
+GET http://localhost:8080/api/get-equipment?uid=user-id-here
+
+### Update gold
+POST http://localhost:8080/api/update-gold
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "amount": 100,
+  "operation": "add"
+}
+
+### Get boat building progress
+GET http://localhost:8080/api/get-boat-progress?uid=user-id-here
+
+### Craft boat
+POST http://localhost:8080/api/craft-boat
+Content-Type: application/json
+
+{
+  "uid": "user-id-here"
+}
+
+###############################################
+# EXPLORATION ROUTES
+###############################################
+
+### Get current location
+GET http://localhost:8080/api/get-location?uid=user-id-here
+
+### Move to new location
+POST http://localhost:8080/api/move-to-location
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "targetLocation": {
+    "area": "forest-north",
+    "coordinates": { "x": 5, "y": 10 }
+  }
+}
+
+### Get available areas
+GET http://localhost:8080/api/get-available-areas?uid=user-id-here
+
+### Trigger random event
+POST http://localhost:8080/api/trigger-event
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "eventType": "random-encounter",
+  "location": "forest-north"
+}
+
+###############################################
+# FACTION SYSTEM ROUTES
+###############################################
+
+### Get faction standings
+GET http://localhost:8080/api/get-faction-standings?uid=user-id-here
+
+### Update faction reputation
+POST http://localhost:8080/api/update-faction-reputation
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "factionId": "existentialists",
+  "reputationChange": 10,
+  "reason": "completed-faction-quest"
+}
+
+### Get NPC relationships
+GET http://localhost:8080/api/get-npc-relationships?uid=user-id-here
+
+### Update NPC relationship
+POST http://localhost:8080/api/update-npc-relationship
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "npcId": "forest-elk",
+  "relationshipChange": 5,
+  "reason": "helped-with-loggers"
+}
+
+###############################################
+# QUEST SYSTEM ROUTES
+###############################################
+
+### Get available quests
+GET http://localhost:8080/api/get-available-quests?uid=user-id-here
+
+### Accept quest
+POST http://localhost:8080/api/accept-quest
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "questId": "boat-building-quest"
+}
+
+### Update quest progress
+POST http://localhost:8080/api/update-quest-progress
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "questId": "boat-building-quest",
+  "progress": {
+    "piecesCollected": 4,
+    "totalPieces": 5
+  }
+}
+
+### Complete quest
+POST http://localhost:8080/api/complete-quest
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "questId": "forest-elk-encounter"
+}
+
+### Get quest history
+GET http://localhost:8080/api/get-quest-history?uid=user-id-here
+
+###############################################
+# LABYRINTH SYSTEM ROUTES
+###############################################
+
+### Get labyrinth progress
+GET http://localhost:8080/api/get-labyrinth-progress?uid=user-id-here
+
+### Advance labyrinth chamber
+POST http://localhost:8080/api/advance-labyrinth-chamber
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "chamberResult": "puzzle-solved",
+  "ageIncrease": 1
+}
+
+### Get chamber details
+GET http://localhost:8080/api/get-chamber-details?uid=user-id-here&chamber=5
+
+###############################################
+# ACHIEVEMENT SYSTEM ROUTES
+###############################################
+
+### Get achievements
+GET http://localhost:8080/api/get-achievements?uid=user-id-here
+
+### Unlock achievement
+POST http://localhost:8080/api/unlock-achievement
+Content-Type: application/json
+
+{
+  "uid": "user-id-here",
+  "achievementId": "first-victory",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
