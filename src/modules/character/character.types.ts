@@ -12,25 +12,28 @@ export interface CharacterStats {
   body: number;
   mind: number;
   heart: number;
-  hp: number;
-  maxHp: number;
-  mp: number;
-  maxMp: number;
 }
 
 export interface DetailedStats {
-  physicalAttack: number;
-  physicalDefense: number;
+  // Body stats - frontend field names
+  physicalAtk: number;
+  physicalDef: number;
   accuracy: number;
-  speed: number;
-  mentalAttack: number;
-  mentalDefense: number;
+  critDamage: number;
+  constitution: number;
+  // Mind stats
+  mentalAtk: number;
+  mentalDef: number;
   evasion: number;
   perception: number;
-  socialAttack: number;
-  socialDefense: number;
-  ailmentAttack: number;
-  ailmentDefense: number;
+  reflexSave: number;
+  // Heart stats
+  charisma: number;
+  ailmentAtk: number;
+  criticalRate: number;
+  willpower: number;
+  empathy: number;
+  luck: number;
 }
 
 export interface Character {
@@ -43,8 +46,12 @@ export interface Character {
   experience: number;
   experienceToNext: number;
   age: number;
+  currentHp: number;
+  maxHp: number;
+  currentMp: number;
+  maxMp: number;
   stats: CharacterStats;
-  detailedStats: DetailedStats;
+  detailedStats?: DetailedStats;
   location: Location;
   availableStatPoints: number;
   skillPoints: number;
@@ -55,10 +62,10 @@ export interface Character {
 }
 
 export interface CharacterCreateRequest {
-  uid: string;
+  uid?: string;
   name: string;
-  race: Race;
   portrait: string;
+  age?: number;
 }
 
 export interface CharacterUpdateRequest {

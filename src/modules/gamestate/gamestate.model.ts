@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { GameState, GamePhase, QuestProgress, StoryMilestone } from './gamestate.types.js';
+import { GameState, GamePhase, StoryMilestone } from './gamestate.types.js';
 
 const locationSchema = new Schema({
   area: { type: String, required: true },
