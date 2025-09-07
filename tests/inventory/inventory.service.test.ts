@@ -3,7 +3,7 @@ import { createMockUser, createMockCharacter } from '../setup.js';
 
 // Inventory Service Tests
 describe('Inventory Service', () => {
-  describe.skip('Inventory Management', () => {
+  describe('Inventory Management', () => {
     it('should create initial inventory for new character', async () => {
       const uid = 'test-user-id';
       const characterId = 'test-character-id';
@@ -56,7 +56,7 @@ describe('Inventory Service', () => {
     });
   });
 
-  describe.skip('Item Removal', () => {
+  describe('Item Removal', () => {
     it('should remove items from inventory', async () => {
       const uid = 'test-user-id';
       const removeData = {
@@ -88,7 +88,7 @@ describe('Inventory Service', () => {
     });
   });
 
-  describe.skip('Equipment Management', () => {
+  describe('Equipment Management', () => {
     it('should equip item to appropriate slot', async () => {
       const uid = 'test-user-id';
       const equipData = {
@@ -135,7 +135,7 @@ describe('Inventory Service', () => {
     });
   });
 
-  describe.skip('Item Usage', () => {
+  describe('Item Usage', () => {
     it('should consume consumable items', async () => {
       const uid = 'test-user-id';
       const consumableData = {
@@ -161,7 +161,7 @@ describe('Inventory Service', () => {
     });
   });
 
-  describe.skip('Gold Management', () => {
+  describe('Gold Management', () => {
     it('should add gold to inventory', async () => {
       const uid = 'test-user-id';
       const goldAmount = 100;
@@ -187,7 +187,7 @@ describe('Inventory Service', () => {
     });
   });
 
-  describe.skip('Boat Building System', () => {
+  describe('Boat Building System', () => {
     it('should track boat piece collection', async () => {
       const uid = 'test-user-id';
       const boatPiece = {
@@ -223,7 +223,7 @@ describe('Inventory Service', () => {
     });
   });
 
-  describe.skip('Loot Generation', () => {
+  describe('Loot Generation', () => {
     it('should generate loot based on enemy type', async () => {
       const enemyType = 'forest-spirit';
       const playerLevel = 3;
@@ -248,7 +248,7 @@ describe('Inventory Service', () => {
     });
   });
 
-  describe.skip('Inventory Validation', () => {
+  describe('Inventory Validation', () => {
     it('should validate inventory ownership', async () => {
       // Test inventory ownership validation
       // Implementation needed

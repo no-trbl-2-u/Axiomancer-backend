@@ -3,7 +3,7 @@ import request from 'supertest';
 
 // Exploration Controller Tests
 describe('Exploration Controller', () => {
-  describe.skip('GET /api/get-location', () => {
+  describe('GET /api/get-location', () => {
     it('should return current location details', async () => {
       const uid = 'test-user-id';
       
@@ -19,7 +19,7 @@ describe('Exploration Controller', () => {
     });
   });
 
-  describe.skip('POST /api/move-to-location', () => {
+  describe('POST /api/move-to-location', () => {
     it('should move player to new location', async () => {
       const moveData = {
         uid: 'test-user-id',
@@ -41,7 +41,7 @@ describe('Exploration Controller', () => {
     });
   });
 
-  describe.skip('GET /api/get-available-areas', () => {
+  describe('GET /api/get-available-areas', () => {
     it('should return unlocked areas for player', async () => {
       const uid = 'test-user-id';
 

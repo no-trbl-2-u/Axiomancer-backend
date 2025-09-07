@@ -3,7 +3,7 @@ import { createMockCharacter } from '../setup.js';
 
 // Character Model Tests
 describe('Character Model', () => {
-  describe.skip('Character Schema Validation', () => {
+  describe('Character Schema Validation', () => {
     it('should create a valid character with all required fields', async () => {
       const mockCharacter = createMockCharacter();
       
@@ -59,7 +59,7 @@ describe('Character Model', () => {
     });
   });
 
-  describe.skip('Character Stat Calculations', () => {
+  describe('Character Stat Calculations', () => {
     it('should calculate maxHP based on body stat', async () => {
       // Test HP calculation formula
       // Implementation needed
@@ -81,7 +81,7 @@ describe('Character Model', () => {
     });
   });
 
-  describe.skip('Character Progression', () => {
+  describe('Character Progression', () => {
     it('should level up when experience threshold is reached', async () => {
       // Test level up logic
       // Implementation needed
@@ -101,7 +101,7 @@ describe('Character Model', () => {
     });
   });
 
-  describe.skip('Character Age Progression', () => {
+  describe('Character Age Progression', () => {
     it('should track character age from childhood to adulthood', async () => {
       // Test age tracking through labyrinth progression
       // Implementation needed

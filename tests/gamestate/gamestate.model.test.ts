@@ -3,7 +3,7 @@ import { createMockGameState } from '../setup.js';
 
 // Game State Model Tests
 describe('Game State Model', () => {
-  describe.skip('Game State Schema Validation', () => {
+  describe('Game State Schema Validation', () => {
     it('should create a valid game state with all required fields', async () => {
       const mockGameState = createMockGameState();
       
@@ -49,7 +49,7 @@ describe('Game State Model', () => {
     });
   });
 
-  describe.skip('Location Management', () => {
+  describe('Location Management', () => {
     it('should track current player location', async () => {
       const gameState = createMockGameState();
       
@@ -78,7 +78,7 @@ describe('Game State Model', () => {
     });
   });
 
-  describe.skip('Phase Progression', () => {
+  describe('Phase Progression', () => {
     it('should track game phase transitions', async () => {
       // Test phase progression logic
       // Implementation needed
@@ -98,7 +98,7 @@ describe('Game State Model', () => {
     });
   });
 
-  describe.skip('Quest and Story Progress', () => {
+  describe('Quest and Story Progress', () => {
     it('should track quest completion status', async () => {
       const gameState = createMockGameState();
       
@@ -118,7 +118,7 @@ describe('Game State Model', () => {
     });
   });
 
-  describe.skip('Save System', () => {
+  describe('Save System', () => {
     it('should track last save timestamp', async () => {
       const gameState = createMockGameState();
       

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 
 // Inventory Model Tests
 describe('Inventory Model', () => {
-  describe.skip('Inventory Schema Validation', () => {
+  describe('Inventory Schema Validation', () => {
     it('should create valid inventory with required fields', async () => {
       const inventory = {
         uid: 'test-user-id',
@@ -56,7 +56,7 @@ describe('Inventory Model', () => {
     });
   });
 
-  describe.skip('Item Schema Validation', () => {
+  describe('Item Schema Validation', () => {
     it('should create valid item with all properties', async () => {
       const item = {
         id: 'elk-blessed-staff',
@@ -109,7 +109,7 @@ describe('Inventory Model', () => {
     });
   });
 
-  describe.skip('Equipment Schema Validation', () => {
+  describe('Equipment Schema Validation', () => {
     it('should create valid equipment setup', async () => {
       const equipment = {
         uid: 'test-user-id',
@@ -151,7 +151,7 @@ describe('Inventory Model', () => {
     });
   });
 
-  describe.skip('Boat Building Materials', () => {
+  describe('Boat Building Materials', () => {
     it('should track boat piece collection', async () => {
       const boatMaterials = {
         uid: 'test-user-id',
