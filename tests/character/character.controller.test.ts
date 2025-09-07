@@ -4,7 +4,7 @@ import { createMockUser, createMockCharacter } from '../setup.js';
 
 // Character Controller Tests
 describe('Character Controller', () => {
-  describe.skip('POST /api/create-character', () => {
+  describe('POST /api/create-character', () => {
     it('should create a new character with valid data', async () => {
       const characterData = {
         uid: 'test-user-id',
@@ -50,7 +50,7 @@ describe('Character Controller', () => {
     });
   });
 
-  describe.skip('GET /api/get-character', () => {
+  describe('GET /api/get-character', () => {
     it('should return character data for valid user', async () => {
       const uid = 'test-user-id';
 
@@ -82,7 +82,7 @@ describe('Character Controller', () => {
     });
   });
 
-  describe.skip('PUT /api/update-character', () => {
+  describe('PUT /api/update-character', () => {
     it('should update character stats', async () => {
       const updateData = {
         uid: 'test-user-id',
@@ -150,7 +150,7 @@ describe('Character Controller', () => {
     });
   });
 
-  describe.skip('DELETE /api/delete-character', () => {
+  describe('DELETE /api/delete-character', () => {
     it('should delete character for valid user', async () => {
       const deleteData = {
         uid: 'test-user-id'
@@ -184,7 +184,7 @@ describe('Character Controller', () => {
     });
   });
 
-  describe.skip('GET /api/character-stats', () => {
+  describe('GET /api/character-stats', () => {
     it('should return detailed character statistics', async () => {
       const uid = 'test-user-id';
 

@@ -3,7 +3,7 @@ import { createMockUser, createMockCharacter } from '../setup.js';
 
 // Combat Service Tests
 describe('Combat Service', () => {
-  describe.skip('Combat Initiation', () => {
+  describe('Combat Initiation', () => {
     it('should initialize combat with player and enemy data', async () => {
       const uid = 'test-user-id';
       const enemyId = 'forest-spirit-1';
@@ -32,7 +32,7 @@ describe('Combat Service', () => {
     });
   });
 
-  describe.skip('Combat Logging', () => {
+  describe('Combat Logging', () => {
     it('should log combat round results', async () => {
       const combatRound = {
         playerChoice: { type: 'body', action: 'attack' },
@@ -70,7 +70,7 @@ describe('Combat Service', () => {
     });
   });
 
-  describe.skip('Special Attacks Management', () => {
+  describe('Special Attacks Management', () => {
     it('should unlock fallacy after learning from Elk', async () => {
       const uid = 'test-user-id';
       const fallacyId = 'strawman-fallacy';
@@ -102,7 +102,7 @@ describe('Combat Service', () => {
     });
   });
 
-  describe.skip('Demon Contract Management', () => {
+  describe('Demon Contract Management', () => {
     it('should create demon contract after player death', async () => {
       const uid = 'test-user-id';
       const contractTerms = {
@@ -142,7 +142,7 @@ describe('Combat Service', () => {
     });
   });
 
-  describe.skip('Combat Statistics Tracking', () => {
+  describe('Combat Statistics Tracking', () => {
     it('should update combat statistics after each fight', async () => {
       const uid = 'test-user-id';
       const combatResult = 'victory';
@@ -171,7 +171,7 @@ describe('Combat Service', () => {
     });
   });
 
-  describe.skip('Fallacy Mini-game Management', () => {
+  describe('Fallacy Mini-game Management', () => {
     it('should present fallacy challenge during defend actions', async () => {
       const fallacyChallenge = {
         type: 'strawman',
@@ -204,7 +204,7 @@ describe('Combat Service', () => {
     });
   });
 
-  describe.skip('Agreement System', () => {
+  describe('Agreement System', () => {
     it('should track agreement points during combat', async () => {
       // Test agreement point tracking
       // Implementation needed

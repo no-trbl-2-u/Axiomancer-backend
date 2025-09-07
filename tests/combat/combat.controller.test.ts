@@ -4,7 +4,7 @@ import { createMockUser, createMockCharacter } from '../setup.js';
 
 // Combat Controller Tests
 describe('Combat Controller', () => {
-  describe.skip('POST /api/initiate-combat', () => {
+  describe('POST /api/initiate-combat', () => {
     it('should start combat with valid enemy', async () => {
       const combatData = {
         uid: 'test-user-id',
@@ -48,7 +48,7 @@ describe('Combat Controller', () => {
     });
   });
 
-  describe.skip('POST /api/combat-action', () => {
+  describe('POST /api/combat-action', () => {
     it('should process valid combat action', async () => {
       const actionData = {
         uid: 'test-user-id',
@@ -107,7 +107,7 @@ describe('Combat Controller', () => {
     });
   });
 
-  describe.skip('POST /api/use-special-attack', () => {
+  describe('POST /api/use-special-attack', () => {
     it('should use fallacy attack when available', async () => {
       const specialAttackData = {
         uid: 'test-user-id',
@@ -153,7 +153,7 @@ describe('Combat Controller', () => {
     });
   });
 
-  describe.skip('POST /api/fallacy-challenge', () => {
+  describe('POST /api/fallacy-challenge', () => {
     it('should present fallacy identification challenge', async () => {
       const challengeData = {
         uid: 'test-user-id',
@@ -192,7 +192,7 @@ describe('Combat Controller', () => {
     });
   });
 
-  describe.skip('POST /api/demon-contract', () => {
+  describe('POST /api/demon-contract', () => {
     it('should offer demon contract after player death', async () => {
       const deathData = {
         uid: 'test-user-id',
@@ -235,7 +235,7 @@ describe('Combat Controller', () => {
     });
   });
 
-  describe.skip('POST /api/summon-demon', () => {
+  describe('POST /api/summon-demon', () => {
     it('should summon demon when soul is sacrificed', async () => {
       const summonData = {
         uid: 'test-user-id',
@@ -267,7 +267,7 @@ describe('Combat Controller', () => {
     });
   });
 
-  describe.skip('GET /api/combat-statistics', () => {
+  describe('GET /api/combat-statistics', () => {
     it('should return player combat statistics', async () => {
       const uid = 'test-user-id';
 
@@ -295,7 +295,7 @@ describe('Combat Controller', () => {
     });
   });
 
-  describe.skip('GET /api/available-special-attacks', () => {
+  describe('GET /api/available-special-attacks', () => {
     it('should return unlocked special attacks for player', async () => {
       const uid = 'test-user-id';
 

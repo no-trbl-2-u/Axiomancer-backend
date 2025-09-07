@@ -3,7 +3,7 @@ import { createMockUser, createMockCharacter } from '../setup.js';
 
 // Character Service Tests
 describe('Character Service', () => {
-  describe.skip('Character Creation', () => {
+  describe('Character Creation', () => {
     it('should create a new character for a user', async () => {
       const mockUser = createMockUser();
       const characterData = {
@@ -40,7 +40,7 @@ describe('Character Service', () => {
     });
   });
 
-  describe.skip('Character Retrieval', () => {
+  describe('Character Retrieval', () => {
     it('should get character by user ID', async () => {
       const mockUser = createMockUser();
       
@@ -64,7 +64,7 @@ describe('Character Service', () => {
     });
   });
 
-  describe.skip('Character Updates', () => {
+  describe('Character Updates', () => {
     it('should update character stats', async () => {
       const character = createMockCharacter();
       const statUpdates = {
@@ -106,7 +106,7 @@ describe('Character Service', () => {
     });
   });
 
-  describe.skip('Character Validation', () => {
+  describe('Character Validation', () => {
     it('should validate character ownership before updates', async () => {
       // Test user ownership validation
       // Implementation needed
@@ -126,7 +126,7 @@ describe('Character Service', () => {
     });
   });
 
-  describe.skip('Character Deletion', () => {
+  describe('Character Deletion', () => {
     it('should delete character and associated data', async () => {
       // Test character deletion
       // Implementation needed

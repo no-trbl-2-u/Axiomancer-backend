@@ -4,7 +4,7 @@ import { createMockUser, createMockCharacter } from '../setup.js';
 
 // Inventory Controller Tests
 describe('Inventory Controller', () => {
-  describe.skip('GET /api/get-inventory', () => {
+  describe('GET /api/get-inventory', () => {
     it('should return player inventory', async () => {
       const uid = 'test-user-id';
 
@@ -34,7 +34,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('POST /api/add-item', () => {
+  describe('POST /api/add-item', () => {
     it('should add item to inventory', async () => {
       const itemData = {
         uid: 'test-user-id',
@@ -78,7 +78,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('POST /api/remove-item', () => {
+  describe('POST /api/remove-item', () => {
     it('should remove item from inventory', async () => {
       const removeData = {
         uid: 'test-user-id',
@@ -122,7 +122,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('POST /api/equip-item', () => {
+  describe('POST /api/equip-item', () => {
     it('should equip item to appropriate slot', async () => {
       const equipData = {
         uid: 'test-user-id',
@@ -172,7 +172,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('POST /api/unequip-item', () => {
+  describe('POST /api/unequip-item', () => {
     it('should unequip item from slot', async () => {
       const unequipData = {
         uid: 'test-user-id',
@@ -208,7 +208,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('POST /api/use-item', () => {
+  describe('POST /api/use-item', () => {
     it('should consume consumable item', async () => {
       const useData = {
         uid: 'test-user-id',
@@ -246,7 +246,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('GET /api/get-equipment', () => {
+  describe('GET /api/get-equipment', () => {
     it('should return currently equipped items', async () => {
       const uid = 'test-user-id';
 
@@ -268,7 +268,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('POST /api/update-gold', () => {
+  describe('POST /api/update-gold', () => {
     it('should add gold to inventory', async () => {
       const goldData = {
         uid: 'test-user-id',
@@ -306,7 +306,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('GET /api/get-boat-progress', () => {
+  describe('GET /api/get-boat-progress', () => {
     it('should return boat building progress', async () => {
       const uid = 'test-user-id';
 
@@ -328,7 +328,7 @@ describe('Inventory Controller', () => {
     });
   });
 
-  describe.skip('POST /api/craft-boat', () => {
+  describe('POST /api/craft-boat', () => {
     it('should craft boat when all pieces are available', async () => {
       const craftData = {
         uid: 'test-user-id'

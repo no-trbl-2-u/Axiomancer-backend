@@ -3,7 +3,7 @@ import { createMockUser, createMockGameState } from '../setup.js';
 
 // Game State Service Tests
 describe('Game State Service', () => {
-  describe.skip('Game State Creation', () => {
+  describe('Game State Creation', () => {
     it('should create initial game state for new character', async () => {
       const mockUser = createMockUser();
       const characterId = 'test-character-id';
@@ -32,7 +32,7 @@ describe('Game State Service', () => {
     });
   });
 
-  describe.skip('Game State Retrieval', () => {
+  describe('Game State Retrieval', () => {
     it('should get game state by user ID and save slot', async () => {
       const uid = 'test-user-id';
       const saveSlot = 1;
@@ -60,7 +60,7 @@ describe('Game State Service', () => {
     });
   });
 
-  describe.skip('Location Updates', () => {
+  describe('Location Updates', () => {
     it('should update player location', async () => {
       const uid = 'test-user-id';
       const newLocation = {
@@ -92,7 +92,7 @@ describe('Game State Service', () => {
     });
   });
 
-  describe.skip('Phase Management', () => {
+  describe('Phase Management', () => {
     it('should advance game phase when conditions are met', async () => {
       const uid = 'test-user-id';
       
@@ -114,7 +114,7 @@ describe('Game State Service', () => {
     });
   });
 
-  describe.skip('Quest Progress Management', () => {
+  describe('Quest Progress Management', () => {
     it('should update quest progress', async () => {
       const uid = 'test-user-id';
       const questId = 'boat-building-quest';
@@ -141,7 +141,7 @@ describe('Game State Service', () => {
     });
   });
 
-  describe.skip('Story Milestone Tracking', () => {
+  describe('Story Milestone Tracking', () => {
     it('should record story milestones', async () => {
       const uid = 'test-user-id';
       const milestone = {
@@ -168,7 +168,7 @@ describe('Game State Service', () => {
     });
   });
 
-  describe.skip('Save System Management', () => {
+  describe('Save System Management', () => {
     it('should save current game state', async () => {
       const uid = 'test-user-id';
       const saveSlot = 1;
@@ -209,7 +209,7 @@ describe('Game State Service', () => {
     });
   });
 
-  describe.skip('Game State Validation', () => {
+  describe('Game State Validation', () => {
     it('should validate user ownership of game state', async () => {
       // Test ownership validation
       // Implementation needed

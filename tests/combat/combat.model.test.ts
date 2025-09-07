@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 
 // Combat Model Tests
 describe('Combat Model', () => {
-  describe.skip('Combat Log Schema', () => {
+  describe('Combat Log Schema', () => {
     it('should create valid combat log entry', async () => {
       const combatLog = {
         uid: 'test-user-id',
@@ -55,7 +55,7 @@ describe('Combat Model', () => {
     });
   });
 
-  describe.skip('Special Attacks and Abilities', () => {
+  describe('Special Attacks and Abilities', () => {
     it('should create fallacy attack entry', async () => {
       const fallacyAttack = {
         id: 'strawman-fallacy',
@@ -99,7 +99,7 @@ describe('Combat Model', () => {
     });
   });
 
-  describe.skip('Demon Contracts', () => {
+  describe('Demon Contracts', () => {
     it('should create demon contract entry', async () => {
       const demonContract = {
         uid: 'test-user-id',
@@ -138,7 +138,7 @@ describe('Combat Model', () => {
     });
   });
 
-  describe.skip('Combat Statistics', () => {
+  describe('Combat Statistics', () => {
     it('should track combat performance metrics', async () => {
       const combatStats = {
         uid: 'test-user-id',

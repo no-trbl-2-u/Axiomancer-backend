@@ -4,7 +4,7 @@ import { createMockUser, createMockGameState } from '../setup.js';
 
 // Game State Controller Tests
 describe('Game State Controller', () => {
-  describe.skip('GET /api/get-game-state', () => {
+  describe('GET /api/get-game-state', () => {
     it('should return game state for valid user and save slot', async () => {
       const uid = 'test-user-id';
       const saveSlot = 1;
@@ -45,7 +45,7 @@ describe('Game State Controller', () => {
     });
   });
 
-  describe.skip('POST /api/update-game-state', () => {
+  describe('POST /api/update-game-state', () => {
     it('should update player location', async () => {
       const updateData = {
         uid: 'test-user-id',
@@ -127,7 +127,7 @@ describe('Game State Controller', () => {
     });
   });
 
-  describe.skip('POST /api/save-game', () => {
+  describe('POST /api/save-game', () => {
     it('should save current game state to specified slot', async () => {
       const saveData = {
         uid: 'test-user-id',
@@ -165,7 +165,7 @@ describe('Game State Controller', () => {
     });
   });
 
-  describe.skip('POST /api/load-game', () => {
+  describe('POST /api/load-game', () => {
     it('should load game state from specified slot', async () => {
       const loadData = {
         uid: 'test-user-id',
@@ -195,7 +195,7 @@ describe('Game State Controller', () => {
     });
   });
 
-  describe.skip('GET /api/get-save-slots', () => {
+  describe('GET /api/get-save-slots', () => {
     it('should return all save slots for a user', async () => {
       const uid = 'test-user-id';
 
@@ -217,7 +217,7 @@ describe('Game State Controller', () => {
     });
   });
 
-  describe.skip('DELETE /api/delete-save', () => {
+  describe('DELETE /api/delete-save', () => {
     it('should delete specified save slot', async () => {
       const deleteData = {
         uid: 'test-user-id',
@@ -242,7 +242,7 @@ describe('Game State Controller', () => {
     });
   });
 
-  describe.skip('POST /api/update-story-milestone', () => {
+  describe('POST /api/update-story-milestone', () => {
     it('should record new story milestone', async () => {
       const milestoneData = {
         uid: 'test-user-id',

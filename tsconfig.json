@@ -44,6 +44,15 @@
     "allowJs": true,
     "noImplicitAny": true,
   },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "tests/**/*",
+    "jest.config.js",
+    "node_modules",
+    "dist"
+  ],
   "ts-node": {
     "esm": true
   }
