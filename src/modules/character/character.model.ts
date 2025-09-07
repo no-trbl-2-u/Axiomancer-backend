@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Character, Race, DetailedStats } from './character.types.js';
+import { Character, Race, DetailedStats, CharacterStats } from './character.types.js';
 
 const locationSchema = new Schema({
   area: { type: String, required: true },
@@ -18,8 +18,8 @@ const statsSchema = new Schema({
 const characterSchema = new Schema<Character>({
   uid: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  race: { 
-    type: String, 
+  race: {
+    type: String,
     required: true,
     enum: ['elf', 'drake', 'arc-mage'] as Race[]
   },
@@ -41,11 +41,12 @@ const characterSchema = new Schema<Character>({
 }, { timestamps: true });
 
 // Set starting stats based on race/portrait
-characterSchema.pre('save', async function() {
+characterSchema.pre('save', async function () {
   if (!this.isNew) return;
-  
+
   // Default stats based on portrait/race
-  const portraitStats: Record<string, { body: number; mind: number; heart: number }> = {
+  type PortraitKey = 'scout' | 'archer' | 'arc-mage' | 'priestess' | 'default';
+  const portraitStats: { [K in PortraitKey]: CharacterStats } = {
     'scout': { body: 8, mind: 10, heart: 6 },
     'archer': { body: 9, mind: 8, heart: 7 },
     'arc-mage': { body: 6, mind: 12, heart: 8 },
@@ -54,11 +55,14 @@ characterSchema.pre('save', async function() {
     'default': { body: 8, mind: 8, heart: 8 }
   };
 
-  const baseStats = portraitStats[this.portrait] || portraitStats['default'];
-  
+  const portraitKey: PortraitKey = (typeof this.portrait === 'string' && this.portrait.trim() && (this.portrait in portraitStats))
+    ? this.portrait as PortraitKey
+    : 'default';
+  const baseStats: CharacterStats = portraitStats[portraitKey];
+
   // Set base stats
   this.stats = baseStats;
-  
+
   // Calculate HP/MP based on stats
   this.maxHp = baseStats.body * 10;
   this.currentHp = this.maxHp;
@@ -73,41 +77,41 @@ characterSchema.pre('save', async function() {
 });
 
 // Handle level up logic
-characterSchema.methods.gainExperience = function(amount: number) {
+characterSchema.methods.gainExperience = function (amount: number) {
   this.experience += amount;
-  
+
   while (this.experience >= this.experienceToNext) {
     this.experience -= this.experienceToNext;
     this.level += 1;
-    
+
     // Give stat points instead of auto-allocation (frontend-driven)
     this.availableStatPoints += 3;
     this.skillPoints += 1;
-    
+
     // Recalculate max HP/MP
     this.maxHp = this.stats.body * 10;
     this.maxMp = this.stats.mind * 5;
-    
+
     // Set new experience threshold (scaling formula)
     this.experienceToNext = Math.floor(150 * Math.pow(1.5, this.level - 1));
   }
 };
 
 // Calculate detailed stats from base stats (frontend field names)
-characterSchema.methods.calculateDetailedStats = function(): DetailedStats {
+characterSchema.methods.calculateDetailedStats = function (): DetailedStats {
   const baseStats = this.stats;
   const level = this.level;
   const age = this.age;
-  
+
   // Age multipliers (childhood = stronger body, weaker mind/heart)
   const ageMultipliers = age <= 17 ? { body: 1.1, mind: 0.8, heart: 0.7 } :
-                        age <= 40 ? { body: 0.9, mind: 1.2, heart: 1.1 } :
-                        { body: 0.6, mind: 1.4, heart: 1.3 };
-  
+    age <= 40 ? { body: 0.9, mind: 1.2, heart: 1.1 } :
+      { body: 0.6, mind: 1.4, heart: 1.3 };
+
   const effectiveBody = Math.floor(baseStats.body * ageMultipliers.body);
   const effectiveMind = Math.floor(baseStats.mind * ageMultipliers.mind);
   const effectiveHeart = Math.floor(baseStats.heart * ageMultipliers.heart);
-  
+
   return {
     // Body stats - using frontend field names
     physicalAtk: effectiveBody + level,
@@ -115,14 +119,14 @@ characterSchema.methods.calculateDetailedStats = function(): DetailedStats {
     accuracy: 50 + effectiveBody * 5,
     critDamage: 100 + effectiveBody * 10,
     constitution: 10 + effectiveBody * 2,
-    
+
     // Mind stats
     mentalAtk: effectiveMind + level,
     mentalDef: effectiveMind + Math.floor(level / 2),
     evasion: 5 + effectiveMind * 2,
     perception: 10 + effectiveMind * 2,
     reflexSave: 8 + effectiveMind,
-    
+
     // Heart stats
     charisma: 5 + effectiveHeart * 2,
     ailmentAtk: 2 + effectiveHeart,
