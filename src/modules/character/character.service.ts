@@ -15,14 +15,23 @@ export const createCharacter = async (data: CharacterCreateRequest): Promise<Cha
     return { message: 'User already has a character' };
   }
 
-  // Validate race
-  const validRaces = ['elf', 'drake', 'arc-mage'];
-  if (!validRaces.includes(data.race)) {
-    return { message: 'Invalid race selection' };
-  }
-
-  const newCharacter = await CharacterModel.create(data);
-  return newCharacter.toObject();
+  const newCharacter = await CharacterModel.create({
+    uid: data.uid,
+    name: data.name,
+    portrait: data.portrait,
+    age: data.age || 8,
+    race: 'elf' // Default race, can be mapped from portrait later
+  });
+  
+  // Calculate detailed stats and format response
+  const detailedStats = (newCharacter as any).calculateDetailedStats();
+  const character = newCharacter.toObject();
+  
+  return {
+    ...character,
+    id: character._id?.toString() || character.uid,
+    detailedStats
+  };
 };
 
 export const getCharacter = async (uid: string): Promise<{ hasCharacter: boolean; character?: Character } | { message: string }> => {

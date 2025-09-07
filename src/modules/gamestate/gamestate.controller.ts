@@ -19,7 +19,7 @@ export const getGameStateController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error getting game state' });
   }
 };
@@ -51,7 +51,7 @@ export const updateGameStateController = async (req: Request, res: Response) => 
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error updating game state' });
   }
 };
@@ -74,7 +74,7 @@ export const saveGameController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(201).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error saving game' });
   }
 };
@@ -97,7 +97,7 @@ export const loadGameController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error loading game' });
   }
 };
@@ -115,7 +115,7 @@ export const getSaveSlotsController = async (req: Request, res: Response) => {
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error getting save slots' });
   }
 };
@@ -137,7 +137,7 @@ export const deleteSaveController = async (req: Request, res: Response) => {
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error deleting save' });
   }
 };
@@ -163,7 +163,7 @@ export const updateStoryMilestoneController = async (req: Request, res: Response
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error updating story milestone' });
   }
 };

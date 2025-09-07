@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Inventory, InventoryItem, Equipment, BoatProgress, EquipmentSlot } from './inventory.types.js';
+import { Inventory, InventoryItem, EquipmentSlot } from './inventory.types.js';
 
 const inventoryItemSchema = new Schema({
   itemId: { type: String, required: true },

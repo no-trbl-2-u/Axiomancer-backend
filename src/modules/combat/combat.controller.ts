@@ -24,7 +24,7 @@ export const initiateCombatController = async (req: Request, res: Response) => {
     };
 
     res.status(200).json(combatSession);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error initiating combat' });
   }
 };
@@ -48,7 +48,7 @@ export const combatActionController = async (req: Request, res: Response) => {
     };
 
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error processing combat action' });
   }
 };
@@ -71,7 +71,7 @@ export const useSpecialAttackController = async (req: Request, res: Response) =>
     };
 
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error using special attack' });
   }
 };
@@ -93,7 +93,7 @@ export const fallacyChallengeController = async (req: Request, res: Response) =>
     };
 
     res.status(200).json(challenge);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error presenting fallacy challenge' });
   }
 };
@@ -119,7 +119,7 @@ export const demonContractController = async (req: Request, res: Response) => {
     };
 
     res.status(201).json(contract);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error processing demon contract' });
   }
 };
@@ -141,7 +141,7 @@ export const summonDemonController = async (req: Request, res: Response) => {
     };
 
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error summoning demon' });
   }
 };
@@ -166,7 +166,7 @@ export const getCombatStatisticsController = async (req: Request, res: Response)
     };
 
     res.status(200).json(stats);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error getting combat statistics' });
   }
 };
@@ -187,7 +187,7 @@ export const getAvailableSpecialAttacksController = async (req: Request, res: Re
     ];
 
     res.status(200).json({ specialAttacks });
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error getting special attacks' });
   }
 };

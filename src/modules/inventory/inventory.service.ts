@@ -9,7 +9,7 @@ export const getInventory = async (uid: string): Promise<Inventory | { message: 
     return { message: 'User not found' };
   }
 
-  let inventory = await InventoryModel.findOne({ uid }, { _id: 0, __v: 0 }).lean();
+  const inventory = await InventoryModel.findOne({ uid }, { _id: 0, __v: 0 }).lean();
   
   if (!inventory) {
     // Create new inventory for user

@@ -14,7 +14,7 @@ export const getInventoryController = async (req: Request, res: Response) => {
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error getting inventory' });
   }
 };
@@ -37,7 +37,7 @@ export const addItemController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error adding item' });
   }
 };
@@ -60,7 +60,7 @@ export const removeItemController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error removing item' });
   }
 };
@@ -84,7 +84,7 @@ export const equipItemController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error equipping item' });
   }
 };
@@ -104,7 +104,7 @@ export const unequipItemController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error unequipping item' });
   }
 };
@@ -124,7 +124,7 @@ export const useItemController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error using item' });
   }
 };
@@ -142,7 +142,7 @@ export const getEquipmentController = async (req: Request, res: Response) => {
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error getting equipment' });
   }
 };
@@ -169,7 +169,7 @@ export const updateGoldController = async (req: Request, res: Response) => {
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error updating gold' });
   }
 };
@@ -187,7 +187,7 @@ export const getBoatProgressController = async (req: Request, res: Response) => 
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error getting boat progress' });
   }
 };
@@ -205,7 +205,7 @@ export const craftBoatController = async (req: Request, res: Response) => {
       return res.status(400).json(result);
     }
     res.status(200).json(result);
-  } catch (error) {
+  } catch (_error) {
     res.status(500).json({ message: 'Error crafting boat' });
   }
 };
