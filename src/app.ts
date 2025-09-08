@@ -20,11 +20,17 @@ const corsOptions = {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
+    // Check explicit allowed origins first
     if (config.allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`Origin ${origin} not allowed by CORS policy`));
+      return callback(null, true);
     }
+    
+    // In production, also allow any vercel.app domain (for your deployed frontend)
+    if (config.isProduction && origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    callback(new Error(`Origin ${origin} not allowed by CORS policy`));
   },
   credentials: true, // Allow cookies and authorization headers
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

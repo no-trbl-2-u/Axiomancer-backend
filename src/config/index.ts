@@ -10,6 +10,7 @@ const config = {
   allowedOrigins: process.env.ALLOWED_ORIGINS 
     ? process.env.ALLOWED_ORIGINS.split(',')
     : ['http://localhost:3000', 'http://localhost:5173'], // Default for development
+  isProduction: process.env.NODE_ENV === 'production',
 };
 
 export default config;
