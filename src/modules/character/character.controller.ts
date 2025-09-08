@@ -5,11 +5,13 @@ export const createCharacterController = async (req: Request, res: Response) => 
   try {
     console.log('createCharacterController called with body:', req.body);
     // Extract UID from authentication (for now, expect it in body - TODO: use JWT middleware)
-    const { name, race, portrait, age } = req.body;
-    const uid = req.body.uid || (req as Request & { user?: { uid: string } }).user?.uid; // Will work with JWT middleware when added
+    const { name, race, portrait, age, uid } = req.body;
+    console.log('Extracted uid from request body:', uid);
+    console.log('All request body fields:', { name, race, portrait, age, uid });
 
     if (!uid) {
-      return res.status(401).json({ message: 'Authentication required' });
+      console.log('UID is missing from request body');
+      return res.status(401).json({ message: 'Authentication required - UID missing' });
     }
 
     const result = await characterService.createCharacter({

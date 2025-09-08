@@ -4,6 +4,13 @@ import { UserModel } from '../user/user.model.js';
 
 export const createCharacter = async (data: CharacterCreateRequest): Promise<Character | { message: string }> => {
   console.log('createCharacter service called with data:', data);
+  console.log('UID in service data:', data.uid);
+  console.log('Type of UID:', typeof data.uid);
+  
+  if (!data.uid) {
+    console.log('ERROR: UID is undefined in service!');
+    return { message: 'UID is required but was not provided' };
+  }
   
   // Check if user exists - add more debugging
   const user = await UserModel.findOne({ uid: data.uid });
