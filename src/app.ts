@@ -17,19 +17,38 @@ app.use(express.json());
 // Configure CORS with whitelist
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    console.log('CORS Origin Check:', {
+      origin,
+      isProduction: config.isProduction,
+      allowedOrigins: config.allowedOrigins,
+      nodeEnv: process.env.NODE_ENV
+    });
+    
     // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      console.log('CORS: Allowing request with no origin');
+      return callback(null, true);
+    }
     
     // Check explicit allowed origins first
     if (config.allowedOrigins.includes(origin)) {
+      console.log('CORS: Origin found in allowed origins');
       return callback(null, true);
     }
     
     // In production, also allow any vercel.app domain (for your deployed frontend)
-    if (config.isProduction && origin.endsWith('.vercel.app')) {
+    if (origin.endsWith('.vercel.app')) {
+      console.log('CORS: Allowing vercel.app domain');
       return callback(null, true);
     }
     
+    // For development, be more permissive with localhost
+    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      console.log('CORS: Allowing localhost origin');
+      return callback(null, true);
+    }
+    
+    console.log('CORS: Origin not allowed:', origin);
     callback(new Error(`Origin ${origin} not allowed by CORS policy`));
   },
   credentials: true, // Allow cookies and authorization headers
@@ -37,7 +56,29 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 };
 
+// Use CORS with fallback for Vercel deployment issues
 app.use(cors(corsOptions));
+
+// Additional CORS headers as fallback
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  
+  // Allow all vercel.app domains and localhost
+  if (origin && (origin.endsWith('.vercel.app') || origin.includes('localhost'))) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  
+  next();
+});
 // Handle helmet's default export in Vercel's build environment
 app.use((helmet as any).default ? (helmet as any).default() : (helmet as any)());
 app.use(morgan('dev'));
