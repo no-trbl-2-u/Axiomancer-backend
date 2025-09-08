@@ -13,7 +13,10 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(helmet());
+// Handle differing module shapes in various build environments (CJS/ESM)
+const helmetAny: any = helmet as unknown as any;
+const helmetMiddleware = typeof helmetAny === 'function' ? helmetAny() : helmetAny.default();
+app.use(helmetMiddleware);
 app.use(morgan('dev'));
 
 app.use('/api', userRoutes);
