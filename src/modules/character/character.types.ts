@@ -64,6 +64,7 @@ export interface Character {
 export interface CharacterCreateRequest {
   uid?: string;
   name: string;
+  race?: Race;
   portrait: string;
   age?: number;
 }

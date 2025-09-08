@@ -27,7 +27,7 @@ const characterSchema = new Schema<Character>({
   level: { type: Number, required: true, default: 1, min: 1 },
   experience: { type: Number, required: true, default: 0, min: 0 },
   experienceToNext: { type: Number, required: true, default: 150, min: 1 },
-  age: { type: Number, required: true, default: 8, min: 1 },
+  age: { type: Number, required: true, default: 12, min: 1 },
   currentHp: { type: Number, required: true, min: 0 },
   maxHp: { type: Number, required: true, min: 1 },
   currentMp: { type: Number, required: true, min: 0 },

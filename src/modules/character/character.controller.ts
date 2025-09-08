@@ -3,29 +3,32 @@ import * as characterService from './character.service.js';
 
 export const createCharacterController = async (req: Request, res: Response) => {
   try {
+    console.log('createCharacterController called with body:', req.body);
     // Extract UID from authentication (for now, expect it in body - TODO: use JWT middleware)
-    const { name, portrait, age } = req.body;
+    const { name, race, portrait, age } = req.body;
     const uid = req.body.uid || (req as Request & { user?: { uid: string } }).user?.uid; // Will work with JWT middleware when added
-    
+
     if (!uid) {
       return res.status(401).json({ message: 'Authentication required' });
     }
-    
-    const result = await characterService.createCharacter({ 
+
+    const result = await characterService.createCharacter({
       uid,
-      name, 
-      portrait, 
-      age 
+      name,
+      race,
+      portrait,
+      age
     });
-    
+
     if ('message' in result) {
-      const status = result.message.includes('already has') ? 409 : 
-                     result.message.includes('not found') ? 404 : 400;
+      const status = result.message.includes('already has') ? 409 :
+        result.message.includes('not found') ? 404 : 400;
       return res.status(status).json(result);
     }
     res.status(201).json(result);
-  } catch {
-    res.status(500).json({ message: 'Error creating character' });
+  } catch (e) {
+    console.error('Error creating character:', e);
+    res.status(500).json({ message: 'Error creating character', error: e });
   }
 };
 
@@ -33,9 +36,9 @@ export const getCharacterController = async (req: Request, res: Response) => {
   try {
     const { uid: paramUid } = req.params;
     const { uid: queryUid, characterId } = req.query;
-    
+
     const uid = paramUid || queryUid;
-    
+
     if (characterId && typeof characterId === 'string') {
       // Get character by ID (frontend expectation)
       const result = await characterService.getCharacterById(characterId);
@@ -44,7 +47,7 @@ export const getCharacterController = async (req: Request, res: Response) => {
       }
       return res.status(200).json(result);
     }
-    
+
     if (uid && typeof uid === 'string') {
       // Get character by UID (existing implementation)
       const result = await characterService.getCharacter(uid);
@@ -53,17 +56,17 @@ export const getCharacterController = async (req: Request, res: Response) => {
       }
       return res.status(200).json(result);
     }
-    
+
     return res.status(400).json({ message: 'Missing uid or characterId parameter' });
-  } catch {
-    res.status(500).json({ message: 'Error getting character' });
+  } catch (e) {
+    res.status(500).json({ message: 'Error getting character', error: e });
   }
 };
 
 export const updateCharacterController = async (req: Request, res: Response) => {
   try {
     const { uid, stats, location, experience } = req.body;
-    
+
     if (!uid) {
       return res.status(400).json({ message: 'Missing uid parameter' });
     }
@@ -90,7 +93,7 @@ export const updateCharacterController = async (req: Request, res: Response) => 
 export const deleteCharacterController = async (req: Request, res: Response) => {
   try {
     const { uid } = req.body;
-    
+
     if (!uid) {
       return res.status(400).json({ message: 'Missing uid parameter' });
     }
@@ -108,7 +111,7 @@ export const deleteCharacterController = async (req: Request, res: Response) => 
 export const getCharacterStatsController = async (req: Request, res: Response) => {
   try {
     const { uid } = req.query;
-    
+
     if (!uid || typeof uid !== 'string') {
       return res.status(400).json({ message: 'Missing or invalid uid parameter' });
     }

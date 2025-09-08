@@ -34,7 +34,7 @@ POST http://localhost:8080/api/create-character
 Content-Type: application/json
 
 {
-  "uid": "user-id-here",
+  "uid": "1be31d0b-1405-48a7-bf1c-a535cded1e5d",
   "name": "Adventurous Hero",
   "race": "elf",
   "portrait": "elf-portrait-1"

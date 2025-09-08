@@ -3,10 +3,17 @@ import { Character, CharacterCreateRequest, CharacterUpdateRequest, CharacterDoc
 import { UserModel } from '../user/user.model.js';
 
 export const createCharacter = async (data: CharacterCreateRequest): Promise<Character | { message: string }> => {
-  // Check if user exists
+  console.log('createCharacter service called with data:', data);
+  
+  // Check if user exists - add more debugging
   const user = await UserModel.findOne({ uid: data.uid });
+  console.log('User found:', user ? 'Yes' : 'No');
+  
   if (!user) {
-    return { message: 'User not found' };
+    // Log all users for debugging
+    const allUsers = await UserModel.find({}, { uid: 1, username: 1 }).lean();
+    console.log('All users in database:', allUsers);
+    return { message: `User not found for UID: ${data.uid}` };
   }
 
   // Check if user already has a character
@@ -15,22 +22,41 @@ export const createCharacter = async (data: CharacterCreateRequest): Promise<Cha
     return { message: 'User already has a character' };
   }
 
+  // Calculate initial stats based on portrait
+  const portraitStats = {
+    'scout': { body: 8, mind: 10, heart: 6 },
+    'archer': { body: 9, mind: 8, heart: 7 },
+    'arc-mage': { body: 6, mind: 12, heart: 8 },
+    'priestess': { body: 7, mind: 9, heart: 10 },
+  };
+
+  const baseStats = portraitStats[data.portrait as keyof typeof portraitStats] || { body: 8, mind: 8, heart: 8 };
+  const maxHp = baseStats.body * 10;
+  const maxMp = baseStats.mind * 5;
+
   const newCharacter = await CharacterModel.create({
     uid: data.uid,
     name: data.name,
     portrait: data.portrait,
-    age: data.age || 8,
-    race: 'elf' // Default race, can be mapped from portrait later
+    age: data.age || 12, // Default age for new characters
+    race: data.race || 'elf', // Use provided race or default to elf
+    stats: baseStats,
+    currentHp: maxHp,
+    maxHp: maxHp,
+    currentMp: maxMp,
+    maxMp: maxMp,
+    location: {
+      area: 'starting-town',
+      coordinates: { x: 0, y: 0 }
+    }
   });
   
-  // Calculate detailed stats and format response
-  const detailedStats = (newCharacter as any).calculateDetailedStats();
+  // Convert to plain object and add id
   const character = newCharacter.toObject();
   
   return {
     ...character,
-    id: character._id?.toString() || character.uid,
-    detailedStats
+    id: character._id?.toString() || character.uid
   };
 };
 
@@ -38,7 +64,9 @@ export const getCharacter = async (uid: string): Promise<{ hasCharacter: boolean
   // Check if user exists
   const user = await UserModel.findOne({ uid });
   if (!user) {
-    return { message: 'User not found' };
+    // For character existence checks, if user doesn't exist, they don't have a character either
+    // This handles the case where hasCharacter() is called immediately after registration
+    return { hasCharacter: false };
   }
 
   const characterDoc = await CharacterModel.findOne({ uid });
@@ -47,16 +75,14 @@ export const getCharacter = async (uid: string): Promise<{ hasCharacter: boolean
     return { hasCharacter: false };
   }
 
-  // Calculate detailed stats
-  const detailedStats = (characterDoc as any).calculateDetailedStats();
+  // Convert to plain object
   const character = characterDoc.toObject();
   
   return { 
     hasCharacter: true, 
     character: {
       ...character,
-      id: character._id?.toString(),
-      detailedStats
+      id: character._id?.toString()
     }
   };
 };
@@ -68,13 +94,12 @@ export const getCharacterById = async (characterId: string): Promise<Character |
     return { message: 'Character not found' };
   }
 
-  const detailedStats = (characterDoc as any).calculateDetailedStats();
+  // Convert to plain object
   const character = characterDoc.toObject();
   
   return {
     ...character,
-    id: character._id?.toString(),
-    detailedStats
+    id: character._id?.toString()
   };
 };
 
