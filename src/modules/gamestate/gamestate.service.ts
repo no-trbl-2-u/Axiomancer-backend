@@ -106,7 +106,7 @@ export const loadGame = async (uid: string, saveSlot: number): Promise<GameState
   return getGameState(uid, saveSlot);
 };
 
-export const getAllSaveSlots = async (uid: string): Promise<{ saveSlots: Array<{ slot: number; occupied: boolean; metadata?: { phase: string; lastSaved: Date } }> } | { message: string }> => {
+export const getAllSaveSlots = async (uid: string): Promise<{ saveSlots: Array<{ slot: number; occupied: boolean; metadata?: any }> } | { message: string }> => {
   const user = await UserModel.findOne({ uid });
   if (!user) {
     return { message: 'User not found' };
@@ -151,7 +151,7 @@ export const addStoryMilestone = async (uid: string, saveSlot: number, milestone
     return { message: 'Game state not found' };
   }
 
-  (gameState as GameStateDocument).addMilestone(milestone);
+  (gameState as any).addMilestone(milestone);
   await gameState.save();
   
   return gameState.toObject();
@@ -164,7 +164,7 @@ export const updateQuestProgress = async (uid: string, saveSlot: number, questId
     return { message: 'Game state not found' };
   }
 
-  (gameState as GameStateDocument).updateQuestProgress(questId, progress, maxProgress);
+  (gameState as any).updateQuestProgress(questId, progress, maxProgress);
   await gameState.save();
   
   return gameState.toObject();

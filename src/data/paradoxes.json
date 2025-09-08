@@ -1,0 +1,102 @@
+[
+  {
+    "paradoxName": "The Ship of Theseus",
+    "paradoxDescription": "If a ship is gradually replaced with new parts until none of the original parts remain, is it still the same ship? This paradox questions the nature of identity and continuity over time."
+  },
+  {
+    "paradoxName": "Zeno's Paradox",
+    "paradoxDescription": "To reach any destination, you must first travel half the distance. But to reach that halfway point, you must first travel half of that distance, and so on infinitely. How can motion ever begin?"
+  },
+  {
+    "paradoxName": "The Grandfather Paradox",
+    "paradoxDescription": "If you traveled back in time and prevented your grandfather from meeting your grandmother, you would prevent your own birth. But then who traveled back in time to create this paradox?"
+  },
+  {
+    "paradoxName": "The Bootstrap Paradox",
+    "paradoxDescription": "Information or objects exist without ever being created. If you travel to the past and teach someone a song you learned from them, where did the song originally come from?"
+  },
+  {
+    "paradoxName": "The Omnipotence Paradox",
+    "paradoxDescription": "Can an omnipotent being create a stone so heavy that they cannot lift it? If they can, they cannot lift it (not omnipotent). If they cannot, they cannot create it (not omnipotent)."
+  },
+  {
+    "paradoxName": "The Barber Paradox",
+    "paradoxDescription": "In a town, the barber shaves only those who do not shave themselves. Who shaves the barber? If he shaves himself, he violates the rule. If he doesn't, then according to the rule, he must."
+  },
+  {
+    "paradoxName": "The Liar Paradox",
+    "paradoxDescription": "Consider the statement: 'This statement is false.' If it's true, then it's false. If it's false, then it's true. It creates a logical contradiction that cannot be resolved."
+  },
+  {
+    "paradoxName": "Achilles and the Tortoise",
+    "paradoxDescription": "In a race where the tortoise has a head start, Achilles must first reach where the tortoise was. But by then, the tortoise has moved further. This process repeats infinitely, suggesting Achilles can never overtake the tortoise."
+  },
+  {
+    "paradoxName": "The Sorites Paradox",
+    "paradoxDescription": "If you remove one grain of sand from a heap, it remains a heap. Continue this process - at what point does it cease to be a heap? The paradox highlights the vagueness of certain concepts."
+  },
+  {
+    "paradoxName": "Schrödinger's Cat",
+    "paradoxDescription": "A cat in a box is simultaneously alive and dead until observed, according to quantum mechanics. This paradox illustrates the strange implications of quantum superposition in macroscopic reality."
+  },
+  {
+    "paradoxName": "The Fermi Paradox",
+    "paradoxDescription": "Given the vast number of stars and potentially habitable planets, where is everybody? The universe should be teeming with intelligent life, yet we observe none."
+  },
+  {
+    "paradoxName": "The Paradox of Choice",
+    "paradoxDescription": "Having too many options can lead to anxiety, decision paralysis, and regret. More choice, which should increase satisfaction, often decreases it instead."
+  },
+  {
+    "paradoxName": "Russell's Paradox",
+    "paradoxDescription": "Consider the set of all sets that do not contain themselves. Does this set contain itself? If it does, it shouldn't. If it doesn't, it should."
+  },
+  {
+    "paradoxName": "The Birthday Paradox",
+    "paradoxDescription": "In a group of just 23 people, there's a 50% chance that two share the same birthday. Despite seeming impossible, this counterintuitive probability is mathematically correct."
+  },
+  {
+    "paradoxName": "The Unexpected Hanging Paradox",
+    "paradoxDescription": "A prisoner is told he will be hanged at noon on a weekday next week, but it will be unexpected. He reasons it cannot be Friday (he'd expect it by Thursday), nor Thursday (he'd expect it by Wednesday), and so on. Yet he can still be unexpectedly hanged."
+  },
+  {
+    "paradoxName": "The Paradox of the Heap",
+    "paradoxDescription": "One grain of sand is not a heap. Adding one grain to a non-heap cannot make a heap. Yet somehow, adding grains one by one eventually creates a heap. When does this transition occur?"
+  },
+  {
+    "paradoxName": "The Monty Hall Paradox",
+    "paradoxDescription": "You choose one of three doors, behind one is a prize. The host opens another door (no prize) and asks if you want to switch. Counterintuitively, switching doubles your chances of winning from 1/3 to 2/3."
+  },
+  {
+    "paradoxName": "The Paradox of Tolerance",
+    "paradoxDescription": "Should a tolerant society tolerate intolerance? If we tolerate intolerant views, they may destroy tolerance itself. If we don't tolerate them, we become intolerant ourselves."
+  },
+  {
+    "paradoxName": "The Chinese Room Paradox",
+    "paradoxDescription": "A person in a room follows rules to respond to Chinese characters without understanding Chinese. To outside observers, the room appears to understand Chinese. Does the room truly understand, or just simulate understanding?"
+  },
+  {
+    "paradoxName": "The Paradox of Free Will",
+    "paradoxDescription": "If everything is determined by prior causes, how can we have free will? If our actions aren't determined, they're random - but random actions aren't freely willed either. Can free will exist in either case?"
+  },
+  {
+    "paradoxName": "The Twin Paradox",
+    "paradoxDescription": "One twin travels to space at high speed while the other remains on Earth. Due to time dilation, the traveling twin ages slower. But from the traveling twin's perspective, Earth is moving away - so who ages slower?"
+  },
+  {
+    "paradoxName": "The Paradox of Value",
+    "paradoxDescription": "Water is essential for life but cheap, while diamonds are merely decorative but expensive. How can something vital have less value than something trivial?"
+  },
+  {
+    "paradoxName": "The Epimenides Paradox",
+    "paradoxDescription": "Epimenides, a Cretan, stated 'All Cretans are liars.' If true, then as a Cretan, he's lying, making the statement false. If false, then not all Cretans are liars, potentially making his statement true."
+  },
+  {
+    "paradoxName": "The Paradox of Fiction",
+    "paradoxDescription": "How can we have genuine emotional responses to fictional characters and events we know aren't real? We cry at movies, fear fictional monsters, yet intellectually know they don't exist."
+  },
+  {
+    "paradoxName": "The Paradox of Analysis",
+    "paradoxDescription": "If an analysis is correct, it should be trivial (saying the same thing twice). If it's informative, it should be incorrect (saying something new). How can philosophical analysis be both correct and informative?"
+  }
+]

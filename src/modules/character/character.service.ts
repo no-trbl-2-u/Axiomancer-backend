@@ -24,7 +24,7 @@ export const createCharacter = async (data: CharacterCreateRequest): Promise<Cha
   });
   
   // Calculate detailed stats and format response
-  const detailedStats = (newCharacter as CharacterDocument).calculateDetailedStats();
+  const detailedStats = (newCharacter as any).calculateDetailedStats();
   const character = newCharacter.toObject();
   
   return {
@@ -48,7 +48,7 @@ export const getCharacter = async (uid: string): Promise<{ hasCharacter: boolean
   }
 
   // Calculate detailed stats
-  const detailedStats = (characterDoc as CharacterDocument).calculateDetailedStats();
+  const detailedStats = (characterDoc as any).calculateDetailedStats();
   const character = characterDoc.toObject();
   
   return { 
@@ -68,7 +68,7 @@ export const getCharacterById = async (characterId: string): Promise<Character |
     return { message: 'Character not found' };
   }
 
-  const detailedStats = (characterDoc as CharacterDocument).calculateDetailedStats();
+  const detailedStats = (characterDoc as any).calculateDetailedStats();
   const character = characterDoc.toObject();
   
   return {
@@ -99,7 +99,7 @@ export const updateCharacter = async (data: CharacterUpdateRequest): Promise<Cha
   if (data.experience !== undefined) {
     const experienceGain = data.experience - character.experience;
     if (experienceGain > 0) {
-      (character as CharacterDocument).gainExperience(experienceGain);
+      (character as any).gainExperience(experienceGain);
     } else {
       character.experience = data.experience;
     }

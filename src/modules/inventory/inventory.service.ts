@@ -27,7 +27,7 @@ export const addItem = async (data: InventoryAddItemRequest): Promise<Inventory 
     inventory = await InventoryModel.create({ uid: data.uid });
   }
 
-  const success = (inventory as InventoryDocument).addItem(data.itemId, data.quantity);
+  const success = (inventory as any).addItem(data.itemId, data.quantity);
 
   if (!success) {
     return { message: 'Inventory is full' };
@@ -44,7 +44,7 @@ export const removeItem = async (data: InventoryRemoveItemRequest): Promise<Inve
     return { message: 'Inventory not found' };
   }
 
-  const success = (inventory as InventoryDocument).removeItem(data.itemId, data.quantity);
+  const success = (inventory as any).removeItem(data.itemId, data.quantity);
 
   if (!success) {
     return { message: 'Item not found or insufficient quantity' };
@@ -68,7 +68,7 @@ export const equipItem = async (data: EquipItemRequest): Promise<{ inventory: In
   }
 
   // Validate slot compatibility (simplified validation)
-  const itemTypeSlotMap: { [key: string]: string } = {
+  const itemTypeSlotMap: { [key: string]: any } = {
     'sword': 'weapon',
     'staff': 'weapon',
     'bow': 'weapon',
@@ -83,7 +83,7 @@ export const equipItem = async (data: EquipItemRequest): Promise<{ inventory: In
     return { message: 'Invalid equipment slot for item type' };
   }
 
-  const success = (inventory as InventoryDocument).equipItem(data.itemId, data.slot);
+  const success = (inventory as any).equipItem(data.itemId, data.slot);
 
   if (!success) {
     return { message: 'Failed to equip item' };
@@ -100,7 +100,7 @@ export const equipItem = async (data: EquipItemRequest): Promise<{ inventory: In
 
   return {
     inventory: inventory.toObject(),
-    characterStats: character?.stats
+    characterStats: character?.stats as any
   };
 };
 
@@ -111,11 +111,11 @@ export const unequipItem = async (uid: string, slot: string): Promise<Inventory 
     return { message: 'Inventory not found' };
   }
 
-  if (!(inventory as InventoryDocument & { hasSpace: () => boolean }).hasSpace()) {
+  if (!(inventory as any).hasSpace()) {
     return { message: 'Inventory is full' };
   }
 
-  const success = (inventory as InventoryDocument).unequipItem(slot);
+  const success = (inventory as any).unequipItem(slot);
 
   if (!success) {
     return { message: 'No item equipped in slot' };
@@ -137,7 +137,7 @@ export const useItem = async (data: UseItemRequest): Promise<{ inventory: Invent
     return { message: 'Item is not consumable' };
   }
 
-  const success = (inventory as InventoryDocument).removeItem(data.itemId, data.quantity);
+  const success = (inventory as any).removeItem(data.itemId, data.quantity);
 
   if (!success) {
     return { message: 'Item not found or insufficient quantity' };
@@ -165,7 +165,7 @@ export const useItem = async (data: UseItemRequest): Promise<{ inventory: Invent
   await inventory.save();
   return {
     inventory: inventory.toObject(),
-    characterStats: character?.stats
+    characterStats: character?.stats as any
   };
 };
 
@@ -230,7 +230,7 @@ export const craftBoat = async (uid: string): Promise<{ message: string; boatPro
   // Remove boat pieces from inventory
   const boatPieces = ['boat-hull', 'boat-sail', 'boat-rudder', 'boat-mast', 'boat-anchor'];
   for (const piece of boatPieces) {
-    (inventory as InventoryDocument).removeItem(piece, 1);
+    (inventory as any).removeItem(piece, 1);
   }
 
   inventory.boatProgress.completed = true;

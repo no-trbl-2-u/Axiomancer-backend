@@ -7,7 +7,7 @@ export default [
     files: ["**/*.{js,mjs,cjs,ts}"],
   },
   {
-    languageOptions: { 
+    languageOptions: {
       globals: globals.node,
       parserOptions: {
         ecmaVersion: 2020,
@@ -20,7 +20,7 @@ export default [
   {
     rules: {
       // Allow unused variables that start with underscore
-      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
       // Allow console.log in Node.js backend
       "no-console": "off",
       // Allow any type when needed

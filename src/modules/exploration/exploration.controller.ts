@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import explorationService from './exploration.service.js';
 
 export const getLocationController = async (req: Request, res: Response) => {
   try {
@@ -139,5 +140,53 @@ export const getAvailableAreasController = async (req: Request, res: Response) =
     res.status(200).json({ areas });
   } catch {
     res.status(500).json({ message: 'Error getting available areas' });
+  }
+};
+
+export const travelToNodeController = async (req: Request, res: Response) => {
+  try {
+    const { uid, characterId, nodeId, coordinates } = req.body;
+    
+    if (!uid || !characterId || !nodeId || !coordinates) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    const result = await explorationService.travelToNode(characterId, nodeId, coordinates);
+    
+    res.status(200).json(result);
+  } catch {
+    res.status(500).json({ message: 'Error traveling to node' });
+  }
+};
+
+export const processEventChoiceController = async (req: Request, res: Response) => {
+  try {
+    const { uid, characterId, eventId, choiceId } = req.body;
+    
+    if (!uid || !characterId || !eventId || !choiceId) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    const result = await explorationService.processEventChoice(eventId, choiceId, characterId);
+    
+    res.status(200).json(result);
+  } catch {
+    res.status(500).json({ message: 'Error processing event choice' });
+  }
+};
+
+export const processRestController = async (req: Request, res: Response) => {
+  try {
+    const { uid, characterId } = req.body;
+    
+    if (!uid || !characterId) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    const result = await explorationService.processRestEvent(characterId);
+    
+    res.status(200).json(result);
+  } catch {
+    res.status(500).json({ message: 'Error processing rest event' });
   }
 };
