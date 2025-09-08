@@ -90,6 +90,27 @@ app.use('/api', inventoryRoutes);
 app.use('/api', combatRoutes);
 app.use('/api', explorationRoutes);
 
+// Global error handler that ensures CORS headers are set even on errors
+app.use((error: any, req: any, res: any, next: any) => {
+  const origin = req.headers.origin;
+  
+  // Always set CORS headers on errors
+  if (origin && (origin.endsWith('.vercel.app') || origin.includes('localhost'))) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  console.error('Global error handler:', error);
+  
+  // Send error response
+  res.status(500).json({
+    message: 'Internal server error',
+    error: error.message || 'Unknown error'
+  });
+});
+
 app.get('/', (req, res) => {
   res.send('Hello from Axiomancer!');
 });
