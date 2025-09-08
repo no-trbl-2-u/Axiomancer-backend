@@ -1,6 +1,7 @@
-import express from 'express';
+import * as express from 'express';
 import cors from 'cors';
-import helmet from 'helmet';
+// import helmet from 'helmet';
+import * as helmet from 'helmet';
 import morgan from 'morgan';
 import userRoutes from './modules/user/user.routes.js';
 import characterRoutes from './modules/character/character.routes.js';
@@ -9,11 +10,11 @@ import inventoryRoutes from './modules/inventory/inventory.routes.js';
 import combatRoutes from './modules/combat/combat.routes.js';
 import explorationRoutes from './modules/exploration/exploration.routes.js';
 
-const app = express();
+const app = express.default();
 
 app.use(express.json());
 app.use(cors());
-app.use(helmet());
+app.use(helmet.default());
 app.use(morgan('dev'));
 
 app.use('/api', userRoutes);
