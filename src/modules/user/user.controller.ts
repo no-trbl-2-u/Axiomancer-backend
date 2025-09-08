@@ -5,7 +5,7 @@ export const getUsersController = async (req: Request, res: Response) => {
   try {
     const users = await userService.getUsers();
     res.status(200).json(users);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error getting users' });
   }
 };
@@ -17,7 +17,7 @@ export const createUserController = async (req: Request, res: Response) => {
       return res.status(200).json(result);
     }
     res.status(201).json(result);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error creating user' });
   }
 };
@@ -40,8 +40,8 @@ export const loginUserController = async (req: Request, res: Response) => {
     
     // Success - return user data
     res.status(200).json(result);
-  } catch (_error) {
-    console.error('Error occurred:', _error);
+  } catch (error) {
+    console.error('Error occurred:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
@@ -56,8 +56,8 @@ export const deleteUserController = async (req: Request, res: Response) => {
 
     const result = await userService.deleteUser(uid);
     res.status(200).json(result);
-  } catch (_error) {
-    console.error('Error occurred:', _error);
+  } catch (error) {
+    console.error('Error occurred:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };

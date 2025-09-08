@@ -45,3 +45,11 @@ export interface GameStateUpdateRequest {
   unlockedAreas?: string[];
   questProgress?: QuestProgress;
 }
+
+// GameState document interface with mongoose methods
+export interface GameStateDocument extends GameState {
+  addMilestone(milestone: StoryMilestone): void;
+  updateQuestProgress(questId: string, progress: number, maxProgress: number): void;
+  toObject(): GameState;
+  save(): Promise<GameStateDocument>;
+}

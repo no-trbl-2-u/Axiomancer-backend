@@ -28,7 +28,7 @@ export interface DemonContract {
   accepted: boolean;
   terms: {
     sacrifice: string;
-    benefit: any;
+    benefit: Record<string, unknown>;
   };
   active: boolean;
   createdAt: Date;

@@ -42,7 +42,7 @@ export declare const createMockGameState: () => {
         };
     };
     unlockedAreas: string[];
-    questProgress: {};
+    questProgress: Record<string, unknown>;
     storyMilestones: never[];
     saveSlot: number;
     lastSaved: Date;

@@ -93,3 +93,17 @@ export interface UpdateGoldRequest {
   amount: number;
   operation: 'add' | 'spend';
 }
+
+// Inventory document interface with mongoose methods
+export interface InventoryDocument extends Inventory {
+  addItem(itemId: string, quantity: number): boolean;
+  removeItem(itemId: string, quantity: number): boolean;
+  equipItem(itemId: string, slot: EquipmentSlot): { success: boolean; unequippedItem?: string };
+  unequipItem(slot: EquipmentSlot): boolean;
+  useItem(itemId: string, quantity: number): { success: boolean; effect?: ItemEffect };
+  updateGold(amount: number, operation: 'add' | 'spend'): boolean;
+  getBoatProgress(): BoatProgress;
+  craftBoat(): boolean;
+  toObject(): Inventory;
+  save(): Promise<InventoryDocument>;
+}

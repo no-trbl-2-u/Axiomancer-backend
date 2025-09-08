@@ -5,7 +5,7 @@ export const createCharacterController = async (req: Request, res: Response) => 
   try {
     // Extract UID from authentication (for now, expect it in body - TODO: use JWT middleware)
     const { name, portrait, age } = req.body;
-    const uid = req.body.uid || (req as any).user?.uid; // Will work with JWT middleware when added
+    const uid = req.body.uid || (req as Request & { user?: { uid: string } }).user?.uid; // Will work with JWT middleware when added
     
     if (!uid) {
       return res.status(401).json({ message: 'Authentication required' });
@@ -24,7 +24,7 @@ export const createCharacterController = async (req: Request, res: Response) => 
       return res.status(status).json(result);
     }
     res.status(201).json(result);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error creating character' });
   }
 };
@@ -55,7 +55,7 @@ export const getCharacterController = async (req: Request, res: Response) => {
     }
     
     return res.status(400).json({ message: 'Missing uid or characterId parameter' });
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error getting character' });
   }
 };
@@ -71,7 +71,7 @@ export const updateCharacterController = async (req: Request, res: Response) => 
     // Validate stat values if provided
     if (stats) {
       const statValues = Object.values(stats);
-      if (statValues.some((val: any) => val < 0)) {
+      if (statValues.some((val: unknown) => typeof val === 'number' && val < 0)) {
         return res.status(400).json({ message: 'Invalid stat values' });
       }
     }
@@ -82,7 +82,7 @@ export const updateCharacterController = async (req: Request, res: Response) => 
       return res.status(status).json(result);
     }
     res.status(200).json(result);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error updating character' });
   }
 };
@@ -100,7 +100,7 @@ export const deleteCharacterController = async (req: Request, res: Response) => 
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error deleting character' });
   }
 };
@@ -118,7 +118,7 @@ export const getCharacterStatsController = async (req: Request, res: Response) =
       return res.status(404).json(result);
     }
     res.status(200).json(result);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error getting character stats' });
   }
 };

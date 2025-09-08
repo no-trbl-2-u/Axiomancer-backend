@@ -1,5 +1,5 @@
 import { InventoryModel } from './inventory.model.js';
-import { Inventory, InventoryAddItemRequest, InventoryRemoveItemRequest, EquipItemRequest, UseItemRequest, UpdateGoldRequest, Equipment, BoatProgress } from './inventory.types.js';
+import { Inventory, InventoryAddItemRequest, InventoryRemoveItemRequest, EquipItemRequest, UseItemRequest, UpdateGoldRequest, Equipment, BoatProgress, InventoryDocument } from './inventory.types.js';
 import { CharacterModel } from '../character/character.model.js';
 import { UserModel } from '../user/user.model.js';
 
@@ -27,7 +27,7 @@ export const addItem = async (data: InventoryAddItemRequest): Promise<Inventory 
     inventory = await InventoryModel.create({ uid: data.uid });
   }
 
-  const success = (inventory as any).addItem(data.itemId, data.quantity);
+  const success = (inventory as InventoryDocument).addItem(data.itemId, data.quantity);
 
   if (!success) {
     return { message: 'Inventory is full' };
@@ -44,7 +44,7 @@ export const removeItem = async (data: InventoryRemoveItemRequest): Promise<Inve
     return { message: 'Inventory not found' };
   }
 
-  const success = (inventory as any).removeItem(data.itemId, data.quantity);
+  const success = (inventory as InventoryDocument).removeItem(data.itemId, data.quantity);
 
   if (!success) {
     return { message: 'Item not found or insufficient quantity' };
@@ -54,7 +54,7 @@ export const removeItem = async (data: InventoryRemoveItemRequest): Promise<Inve
   return inventory.toObject();
 };
 
-export const equipItem = async (data: EquipItemRequest): Promise<{ inventory: Inventory; characterStats?: any } | { message: string }> => {
+export const equipItem = async (data: EquipItemRequest): Promise<{ inventory: Inventory; characterStats?: Record<string, unknown> } | { message: string }> => {
   const inventory = await InventoryModel.findOne({ uid: data.uid });
 
   if (!inventory) {
@@ -83,7 +83,7 @@ export const equipItem = async (data: EquipItemRequest): Promise<{ inventory: In
     return { message: 'Invalid equipment slot for item type' };
   }
 
-  const success = (inventory as any).equipItem(data.itemId, data.slot);
+  const success = (inventory as InventoryDocument).equipItem(data.itemId, data.slot);
 
   if (!success) {
     return { message: 'Failed to equip item' };
@@ -111,11 +111,11 @@ export const unequipItem = async (uid: string, slot: string): Promise<Inventory 
     return { message: 'Inventory not found' };
   }
 
-  if (!(inventory as any).hasSpace()) {
+  if (!(inventory as InventoryDocument & { hasSpace: () => boolean }).hasSpace()) {
     return { message: 'Inventory is full' };
   }
 
-  const success = (inventory as any).unequipItem(slot);
+  const success = (inventory as InventoryDocument).unequipItem(slot);
 
   if (!success) {
     return { message: 'No item equipped in slot' };
@@ -125,7 +125,7 @@ export const unequipItem = async (uid: string, slot: string): Promise<Inventory 
   return inventory.toObject();
 };
 
-export const useItem = async (data: UseItemRequest): Promise<{ inventory: Inventory; characterStats?: any } | { message: string }> => {
+export const useItem = async (data: UseItemRequest): Promise<{ inventory: Inventory; characterStats?: Record<string, unknown> } | { message: string }> => {
   const inventory = await InventoryModel.findOne({ uid: data.uid });
 
   if (!inventory) {
@@ -137,7 +137,7 @@ export const useItem = async (data: UseItemRequest): Promise<{ inventory: Invent
     return { message: 'Item is not consumable' };
   }
 
-  const success = (inventory as any).removeItem(data.itemId, data.quantity);
+  const success = (inventory as InventoryDocument).removeItem(data.itemId, data.quantity);
 
   if (!success) {
     return { message: 'Item not found or insufficient quantity' };
@@ -169,7 +169,7 @@ export const useItem = async (data: UseItemRequest): Promise<{ inventory: Invent
   };
 };
 
-export const getEquipment = async (uid: string): Promise<{ equipment: Equipment; statBonuses?: any } | { message: string }> => {
+export const getEquipment = async (uid: string): Promise<{ equipment: Equipment; statBonuses?: Record<string, number> } | { message: string }> => {
   const inventory = await InventoryModel.findOne({ uid });
 
   if (!inventory) {
@@ -230,7 +230,7 @@ export const craftBoat = async (uid: string): Promise<{ message: string; boatPro
   // Remove boat pieces from inventory
   const boatPieces = ['boat-hull', 'boat-sail', 'boat-rudder', 'boat-mast', 'boat-anchor'];
   for (const piece of boatPieces) {
-    (inventory as any).removeItem(piece, 1);
+    (inventory as InventoryDocument).removeItem(piece, 1);
   }
 
   inventory.boatProgress.completed = true;

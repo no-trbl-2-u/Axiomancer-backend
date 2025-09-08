@@ -74,3 +74,11 @@ export interface CharacterUpdateRequest {
   location?: Location;
   experience?: number;
 }
+
+// Character document interface with mongoose methods
+export interface CharacterDocument extends Character {
+  calculateDetailedStats(): DetailedStats;
+  gainExperience(amount: number): void;
+  toObject(): Character;
+  save(): Promise<CharacterDocument>;
+}

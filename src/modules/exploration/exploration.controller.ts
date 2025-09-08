@@ -58,7 +58,7 @@ export const getLocationController = async (req: Request, res: Response) => {
     const location = locations['starting-town'];
 
     res.status(200).json(location);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error getting location' });
   }
 };
@@ -89,7 +89,7 @@ export const moveToLocationController = async (req: Request, res: Response) => {
     };
 
     res.status(200).json(result);
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error moving to location' });
   }
 };
@@ -137,7 +137,7 @@ export const getAvailableAreasController = async (req: Request, res: Response) =
     ];
 
     res.status(200).json({ areas });
-  } catch (_error) {
+  } catch {
     res.status(500).json({ message: 'Error getting available areas' });
   }
 };
