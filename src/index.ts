@@ -7,6 +7,7 @@ const startServer = async () => {
 
   app.listen(config.port, () => {
     console.log(`Server is running on port ${config.port}`);
+    console.log('🔥 Debug logging is enabled - if you don\'t see request logs, there might be an issue');
   });
 };
 
