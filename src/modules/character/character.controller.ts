@@ -10,8 +10,14 @@ export const createCharacterController = async (req: Request, res: Response) => 
     console.log('All request body fields:', { name, race, portrait, age, uid });
 
     if (!uid) {
-      console.log('UID is missing from request body');
-      return res.status(401).json({ message: 'Authentication required - UID missing' });
+      console.log('❌ UID is missing from request body');
+      console.log('❌ Request body keys:', Object.keys(req.body));
+      console.log('❌ Request body values:', Object.values(req.body));
+      return res.status(401).json({ 
+        message: 'Authentication required - UID missing',
+        receivedFields: Object.keys(req.body),
+        debug: 'Make sure you are logged in and sessionStorage contains currentUID'
+      });
     }
 
     const result = await characterService.createCharacter({
