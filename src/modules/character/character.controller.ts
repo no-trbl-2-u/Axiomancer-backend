@@ -36,10 +36,11 @@ export const createCharacterController = async (req: Request, res: Response) => 
 
 export const getCharacterController = async (req: Request, res: Response) => {
   try {
-    const { uid: paramUid } = req.params;
-    const { uid: queryUid, characterId } = req.query;
+    const { characterId: paramCharacterId } = req.params;
+    const { uid: queryUid, characterId: queryCharacterId } = req.query;
 
-    const uid = paramUid || queryUid;
+    const characterId = paramCharacterId || queryCharacterId;
+    const uid = queryUid;
 
     if (characterId && typeof characterId === 'string') {
       // Get character by ID (frontend expectation)

@@ -11,7 +11,7 @@ const router = Router();
 
 router.post('/create-character', createCharacterController);
 router.get('/get-character', getCharacterController);
-router.get('/character/:uid', getCharacterController); // Frontend expects this route
+router.get('/character/:characterId', getCharacterController); // Frontend passes characterId as param
 router.put('/update-character', updateCharacterController);
 router.delete('/delete-character', deleteCharacterController);
 router.get('/character-stats', getCharacterStatsController);
