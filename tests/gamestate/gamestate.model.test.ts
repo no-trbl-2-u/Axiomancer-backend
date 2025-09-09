@@ -35,8 +35,8 @@ describe('Game State Model', () => {
       
       expect(gameState.currentLocation.area).toBeDefined();
       expect(gameState.currentLocation.coordinates).toBeDefined();
-      expect(gameState.currentLocation.coordinates.x).toBeTypeOf('number');
-      expect(gameState.currentLocation.coordinates.y).toBeTypeOf('number');
+      expect(typeof gameState.currentLocation.coordinates.x).toBe('number');
+      expect(typeof gameState.currentLocation.coordinates.y).toBe('number');
     });
 
     it('should validate save slot constraints (1-3)', async () => {
@@ -102,7 +102,7 @@ describe('Game State Model', () => {
     it('should track quest completion status', async () => {
       const gameState = createMockGameState();
       
-      expect(gameState.questProgress).toBeTypeOf('object');
+      expect(typeof gameState.questProgress).toBe('object');
     });
 
     it('should track story milestones', async () => {
