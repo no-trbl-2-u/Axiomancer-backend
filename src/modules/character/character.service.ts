@@ -58,12 +58,14 @@ export const createCharacter = async (data: CharacterCreateRequest): Promise<Cha
     }
   });
   
-  // Convert to plain object and add id
+  // Convert to plain object and add id and calculated detailed stats
   const character = newCharacter.toObject();
+  const detailedStats = (newCharacter as any).calculateDetailedStats();
   
   return {
     ...character,
-    id: character._id?.toString() || character.uid
+    id: character._id?.toString() || character.uid,
+    detailedStats
   };
 };
 
@@ -82,14 +84,16 @@ export const getCharacter = async (uid: string): Promise<{ hasCharacter: boolean
     return { hasCharacter: false };
   }
 
-  // Convert to plain object
+  // Convert to plain object and add calculated detailed stats
   const character = characterDoc.toObject();
+  const detailedStats = (characterDoc as any).calculateDetailedStats();
   
   return { 
     hasCharacter: true, 
     character: {
       ...character,
-      id: character._id?.toString()
+      id: character._id?.toString(),
+      detailedStats
     }
   };
 };
@@ -101,12 +105,14 @@ export const getCharacterById = async (characterId: string): Promise<Character |
     return { message: 'Character not found' };
   }
 
-  // Convert to plain object
+  // Convert to plain object and add calculated detailed stats
   const character = characterDoc.toObject();
+  const detailedStats = (characterDoc as any).calculateDetailedStats();
   
   return {
     ...character,
-    id: character._id?.toString()
+    id: character._id?.toString(),
+    detailedStats
   };
 };
 
