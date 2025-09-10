@@ -6,27 +6,49 @@ let mongod: MongoMemoryServer;
 
 export const connectToDatabase = async () => {
   try {
-    // Use in-memory MongoDB for development if DB_CONNECTION is not set or connection fails
-    if (!config.dbConnection || config.dbConnection.includes('mongodb+srv://')) {
-      console.log('Starting MongoDB Memory Server for development...');
+    // In production, require a real database connection
+    if (config.isProduction) {
+      if (!config.dbConnection) {
+        console.error('🚨 PRODUCTION ERROR: DB_CONNECTION environment variable is required in production');
+        process.exit(1);
+      }
+      
+      console.log('Connecting to production MongoDB...');
+      await mongoose.connect(config.dbConnection);
+      console.log('✅ Successfully connected to production MongoDB');
+      return;
+    }
+    
+    // Development: Use in-memory MongoDB if DB_CONNECTION is not set
+    if (!config.dbConnection) {
+      console.log('🔧 Development mode: Starting MongoDB Memory Server...');
       mongod = await MongoMemoryServer.create();
       const uri = mongod.getUri();
       await mongoose.connect(uri);
-      console.log('Successfully connected to MongoDB Memory Server');
+      console.log('✅ Successfully connected to MongoDB Memory Server');
     } else {
+      console.log('🔧 Development mode: Connecting to provided database...');
       await mongoose.connect(config.dbConnection);
-      console.log('Successfully connected to MongoDB');
+      console.log('✅ Successfully connected to MongoDB');
     }
-  } catch (_error) {
-    console.error('Error occurred:', _error);
-    console.log('Falling back to MongoDB Memory Server...');
+  } catch (error) {
+    console.error('❌ Database connection error:', error);
+    
+    // In production, don't fall back to memory server
+    if (config.isProduction) {
+      console.error('🚨 PRODUCTION ERROR: Cannot connect to database. Exiting...');
+      process.exit(1);
+    }
+    
+    // Development fallback
+    console.log('🔧 Development fallback: Starting MongoDB Memory Server...');
     try {
       mongod = await MongoMemoryServer.create();
       const uri = mongod.getUri();
       await mongoose.connect(uri);
-      console.log('Successfully connected to MongoDB Memory Server');
+      console.log('✅ Successfully connected to MongoDB Memory Server (fallback)');
     } catch (memoryError) {
-      console.error('Failed to start MongoDB Memory Server:', memoryError);
+      console.error('❌ Failed to start MongoDB Memory Server:', memoryError);
       process.exit(1);
     }
   }

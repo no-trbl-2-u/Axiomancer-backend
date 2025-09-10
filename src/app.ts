@@ -21,9 +21,8 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const allowedOrigins = isDevelopment
   ? ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173']
   : [
-    // Add your production frontend URLs here
-    'https://your-frontend-url.vercel.app',
-    'https://axiomancer-frontend.vercel.app', // Example - replace with actual
+    'https://axiomancer.netlify.app',
+    'https://axiomancer-frontend.vercel.app', // Keep as backup if you also deploy on Vercel
     // Add any other production domains you need
   ];
 
