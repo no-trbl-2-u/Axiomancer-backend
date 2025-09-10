@@ -46,26 +46,39 @@ export const createCharacterController = async (req: Request, res: Response) => 
 
 export const getCharacterController = async (req: Request, res: Response) => {
   try {
+    console.log('🔥 getCharacterController called');
+    console.log('🔥 req.params:', req.params);
+    console.log('🔥 req.query:', req.query);
+    
     const { characterId: paramCharacterId } = req.params;
     const { uid: queryUid, characterId: queryCharacterId } = req.query;
 
     const characterId = paramCharacterId || queryCharacterId;
     const uid = queryUid;
+    
+    console.log('🔥 Resolved characterId:', characterId);
+    console.log('🔥 Resolved uid:', uid);
 
     if (characterId && typeof characterId === 'string') {
       // Check if characterId is a UUID (UID) or MongoDB ObjectId
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(characterId);
       
+      console.log('🔥 Is UUID:', isUUID);
+      
       if (isUUID) {
+        console.log('🔥 Using getCharacter service with UID:', characterId);
         // It's a UID, use getCharacter
         const result = await characterService.getCharacter(characterId);
+        console.log('🔥 getCharacter result:', result);
         if ('message' in result) {
           return res.status(404).json(result);
         }
         return res.status(200).json(result);
       } else {
+        console.log('🔥 Using getCharacterById service with ObjectId:', characterId);
         // It's a MongoDB ObjectId, use getCharacterById
         const result = await characterService.getCharacterById(characterId);
+        console.log('🔥 getCharacterById result:', result);
         if ('message' in result) {
           return res.status(404).json(result);
         }

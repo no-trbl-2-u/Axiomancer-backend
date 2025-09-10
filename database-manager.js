@@ -390,6 +390,7 @@ console.log('');
 
 // Uncomment ONE of the following lines to run that function:
 
+// TODO: Add a CLI call here so user of CLI can choose populate vs reset cs show db status
 populateDatabase();
 // resetDatabase();
 // showDatabaseStatus();

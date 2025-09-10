@@ -86,9 +86,13 @@ export const getCharacter = async (uid: string): Promise<{ hasCharacter: boolean
 
   // Convert to plain object and add calculated detailed stats
   const character = characterDoc.toObject();
-  const detailedStats = (characterDoc as any).calculateDetailedStats();
+  console.log('🔍 Raw character from DB:', character);
+  console.log('🔍 Character stats:', character.stats);
   
-  return { 
+  const detailedStats = (characterDoc as any).calculateDetailedStats();
+  console.log('🔍 Calculated detailed stats:', detailedStats);
+  
+  const result = { 
     hasCharacter: true, 
     character: {
       ...character,
@@ -96,6 +100,11 @@ export const getCharacter = async (uid: string): Promise<{ hasCharacter: boolean
       detailedStats
     }
   };
+  
+  console.log('🔍 Final result character:', result.character);
+  console.log('🔍 Final result character.stats:', result.character.stats);
+  
+  return result;
 };
 
 export const getCharacterById = async (characterId: string): Promise<Character | { message: string }> => {
