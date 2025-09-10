@@ -22,7 +22,9 @@ const allowedOrigins = isDevelopment
   ? ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173']
   : [
     'https://axiomancer.netlify.app',
-    'https://axiomancer-backend.vercel.app', // Keep as backup if you also deploy on Vercel
+    'https://axiomancer-backend.vercel.app',
+    'https://axiomancer-backend-git-main-anthony-tj-allens-projects.vercel.app',
+    'https://axiomancer-backend-nxr1mgu4s-anthony-tj-allens-projects.vercel.app' // Keep as backup if you also deploy on Vercel
     // Add any other production domains you need
   ];
 
