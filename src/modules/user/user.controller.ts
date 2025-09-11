@@ -12,13 +12,17 @@ export const getUsersController = async (req: Request, res: Response) => {
 
 export const createUserController = async (req: Request, res: Response) => {
   try {
+    console.log('createUserController called with body:', req.body);
     const result = await userService.createUser(req.body);
+    console.log('createUser result:', result);
     if ('message' in result) {
       return res.status(200).json(result);
     }
     res.status(201).json(result);
-  } catch {
-    res.status(500).json({ message: 'Error creating user' });
+  } catch (error) {
+    console.error('createUserController error:', error);
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+    res.status(500).json({ message: 'Error creating user', error: error instanceof Error ? error.message : 'Unknown error' });
   }
 };
 

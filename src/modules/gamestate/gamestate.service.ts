@@ -1,5 +1,5 @@
 import { GameStateModel } from './gamestate.model.js';
-import { GameState, GameStateCreateRequest, GameStateUpdateRequest, StoryMilestone, GameStateDocument } from './gamestate.types.js';
+import { GameState, GameStateCreateRequest, GameStateUpdateRequest, StoryMilestone, GameStateDocument, GamePhase } from './gamestate.types.js';
 import { UserModel } from '../user/user.model.js';
 import { CharacterModel } from '../character/character.model.js';
 
@@ -37,10 +37,34 @@ export const getGameState = async (uid: string, saveSlot: number): Promise<GameS
     return { message: 'Invalid save slot' };
   }
 
-  const gameState = await GameStateModel.findOne({ uid, saveSlot }, { _id: 0, __v: 0 }).lean();
+  let gameState = await GameStateModel.findOne({ uid, saveSlot }, { _id: 0, __v: 0 }).lean();
   
   if (!gameState) {
-    return { message: 'No save found' };
+    // Check if character exists to create default game state
+    const character = await CharacterModel.findOne({ uid });
+    if (!character) {
+      return { message: 'Character not found' };
+    }
+
+    // Create default game state for new characters
+    const defaultGameState = {
+      uid,
+      characterId: character._id.toString(),
+      saveSlot,
+      phase: 'childhood' as GamePhase,
+      currentLocation: {
+        area: character.currentLocation || 'starting-town',
+        coordinates: character.location?.coordinates || { x: 0, y: 0 }
+      },
+      unlockedAreas: [character.currentLocation || 'starting-town'],
+      questProgress: {},
+      storyMilestones: [],
+      lastSaved: new Date()
+    };
+
+    // Save the new game state to database
+    const newGameState = await GameStateModel.create(defaultGameState);
+    return newGameState.toObject();
   }
 
   return gameState;

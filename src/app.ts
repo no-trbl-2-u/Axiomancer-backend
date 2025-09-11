@@ -17,16 +17,12 @@ app.use(express.json());
 // CORS Configuration - Single, clean implementation
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
-// Define allowed origins based on environment
-const allowedOrigins = isDevelopment
-  ? ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:5173']
-  : [
-    'https://axiomancer.netlify.app',
-    'https://axiomancer-backend.vercel.app',
-    'https://axiomancer-backend-git-main-anthony-tj-allens-projects.vercel.app',
-    'https://axiomancer-backend-nxr1mgu4s-anthony-tj-allens-projects.vercel.app' // Keep as backup if you also deploy on Vercel
-    // Add any other production domains you need
-  ];
+// Define allowed origins from environment variable - REQUIRED
+if (!process.env.ALLOWED_ORIGINS) {
+  throw new Error('ALLOWED_ORIGINS environment variable is required but not set');
+}
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim());
 
 const corsOptions = {
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
